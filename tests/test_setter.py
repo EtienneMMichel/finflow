@@ -1,4 +1,4 @@
-from forecast_dataflow.setter import set_data
+from finflow.setter import set_data
 import pandas as pd
 import asyncio
 import random as rd
