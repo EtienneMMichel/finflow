@@ -1,0 +1,44 @@
+from . import utils
+import datetime as dt
+from .utils.exceptions import MissingConfigException, MissingDataException
+
+DEFAULT_DATA_LENGTH = 100000
+
+def check_format_candles_price(data):
+    '''
+    TO-DO: add robust checks to 'content'
+    '''
+    market = data.get("market",None)
+    if market is None:
+        raise MissingConfigException("no key 'market' found in datas element (either 'spot' or 'future')")
+    exchange = data.get("exchange",None)
+    if exchange is None:
+        raise MissingConfigException("no key 'exchange' found in datas element variable")
+    symbol = data.get("symbol",None)
+    if symbol is None:
+        raise MissingConfigException("no key 'symbol' found in datas element variable")
+    timeframe = data.get("timeframe",None)
+    if timeframe is None:
+        raise MissingConfigException("no key 'timeframe' found in datas element variable")
+    timeframe = data.get("timeframe",None)
+    if timeframe is None:
+        raise MissingConfigException("no key 'timeframe' found in datas element variable")
+    data_content = data.get("data",None)
+    if not isinstance(data_content, list):
+        raise MissingConfigException("no key 'data' found in datas element variable or not a list")
+    
+    d = data_content[0]
+    if not "timestamp" in list(d.keys()) or not isinstance(d["timestamp"], int) or len(str(d["timestamp"])) != 13: raise MissingDataException("no 'timestamp' or incorrect format")
+    if not "open" in list(d.keys()) or not isinstance(d["open"], str): raise MissingDataException("no 'open' or incorrect format")
+    if not "high" in list(d.keys()) or not isinstance(d["high"], str): raise MissingDataException("no 'high' or incorrect format")
+    if not "low" in list(d.keys()) or not isinstance(d["low"], str): raise MissingDataException("no 'low' or incorrect format")
+    if not "close" in list(d.keys()) or not isinstance(d["close"], str): raise MissingDataException("no 'close' or incorrect format")
+    if not "volume" in list(d.keys()) or not isinstance(d["volume"], str): raise MissingDataException("no 'volume' or incorrect format")
+
+
+async def set_data(content):
+    data_length = content.get("data_length", DEFAULT_DATA_LENGTH)
+    if content.get("type",None) == "candles_price":
+        for data in content.get("datas", []):
+            check_format_candles_price(data)
+            await utils.set_candles_price(data=data["data"], market=data["market"], exchange=data["exchange"], symbol=data["symbol"], timeframe=data["timeframe"], data_length=data_length)
