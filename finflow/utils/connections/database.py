@@ -63,7 +63,7 @@ class Database():
             df = pd.concat([df_in_db, df], axis=0)
         subset = ["timestamp"] # list(filter(lambda c:c != "data", list(df.columns)))
         df.drop_duplicates(subset = subset,keep='last', inplace=True)
-        df.sort_values(by="timestamp", ascending=False, inplace=True)
+        df.sort_values(by="timestamp", inplace=True)
         # df.reset_index(drop=True, inplace=True)
         if not data_length is None:
             df = df.iloc[-data_length:]

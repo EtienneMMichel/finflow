@@ -5,23 +5,18 @@ import random as rd
 import datetime as dt
 
 async def test_set_candles_price():
-    data = []
-    for _ in range(3):
-        r = rd.randint(1,10)
-        d = dt.datetime.now() + dt.timedelta(days=r)
-        data.append({"timestamp":d,"days":r})
-    content = {
-        "type": "candles_price",
-        "data_length": 5,
-        "datas": [
-            {
-                "market":"spot",
-                "exchange": "binance",
-                "symbol": "BTC_USDT-test",
-                "timeframe": "1m",
-                "data": data
-            }
-        ]
+    now = int(str(int(dt.datetime.now().timestamp())) + "000")
+    data = [{'timestamp': now, 'open': '110412.01000000', 'high': '110412.01000000', 'low': '110360.25000000', 'close': '110360.25000000', 'volume': '4.46775000'}]
+    content = {'type': 'candles_price',
+               'data_length': 10,
+               'datas':[{
+                   'exchange': 'binance',
+                   'market': 'spot',
+                   'symbol': 'BTC_USDC_tesst',
+                   'timeframe': '1m',
+                   'data':data
+               }]
+               
     }
     await set_data(content)
 
