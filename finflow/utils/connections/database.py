@@ -50,20 +50,26 @@ class Database():
         return self.query(q)
 
     async def set_data(self, records, table_name,data_length=None):
+        print("set_data")
         df = pd.DataFrame(records)
+        print("get_table")
         try:
             df_in_db = await self.get_table(table_name)
         except ProgrammingError as e:
             if "UndefinedTable" in str(e):
                 df_in_db = pd.DataFrame()
             else: raise e
+        print("concat")
         if not df_in_db.empty:
             df = pd.concat([df_in_db, df], axis=0)
-        subset = ["datetime"] # list(filter(lambda c:c != "data", list(df.columns)))
+        print("drop")
+        subset = ["timestamp"] # list(filter(lambda c:c != "data", list(df.columns)))
         df.drop_duplicates(subset = subset,keep='last', inplace=True)
-        df.sort_values(by="datetime", ascending=False, inplace=True)
+        df.sort_values(by="timestamp", ascending=False, inplace=True)
         # df.reset_index(drop=True, inplace=True)
+        print("to_sql")
         if not data_length is None:
             df = df.iloc[-data_length:]
         with self.engine.begin() as connection:
             df.to_sql(table_name, con=connection, if_exists='replace', index=False)
+        print("donne")

@@ -9,7 +9,7 @@ async def test_set_candles_price():
     for _ in range(3):
         r = rd.randint(1,10)
         d = dt.datetime.now() + dt.timedelta(days=r)
-        data.append({"datetime":d,"days":r})
+        data.append({"timestamp":d,"days":r})
     content = {
         "type": "candles_price",
         "data_length": 5,
