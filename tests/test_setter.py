@@ -20,5 +20,11 @@ async def test_set_candles_price():
     }
     await set_data(content)
 
+async def test_forecast_direction():
+    content = {'type': 'forecast-direction',
+               'datas': [{'timestamp': 1756824660000, 'bot_id': "test", 'symbol': 'BTC_USDC', 'timeframe': '1m', 'exchange': 'binance', 'market': 'spot', 'direction': 'down'}, {'timestamp': 1756824720000, 'bot_id': "test", 'symbol': 'BTC_USDC', 'timeframe': '1m', 'exchange': 'binance', 'market': 'spot', 'direction': 'down'}]}
+
+    await set_data(content)
+
 if __name__ == "__main__":
-    asyncio.run(test_set_candles_price())
+    asyncio.run(test_forecast_direction())

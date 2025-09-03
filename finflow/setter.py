@@ -51,4 +51,4 @@ async def set_data(content):
         if not isinstance(data, list):
             raise MissingDataException("Failed to get 'datas' key or 'datas' is not a list")
         check_format_forecast_direction(data)
-        await utils.set_forecast_direction(data, data_length=data_length)
+        await utils.set_forecast_direction(data, data_length=1)
