@@ -2,5 +2,5 @@ from pydantic import BaseModel
 
 
 
-class BotProcess():
+class BotProcess(BaseModel):
     config: dict
