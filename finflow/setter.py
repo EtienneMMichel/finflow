@@ -36,9 +36,19 @@ def check_format_candles_price(data):
     if not "volume" in list(d.keys()) or not isinstance(d["volume"], str): raise MissingDataException("no 'volume' or incorrect format")
 
 
+def check_format_forecast_direction():
+    pass
+
+
 async def set_data(content):
     data_length = content.get("data_length", DEFAULT_DATA_LENGTH)
     if content.get("type",None) == "candles_price":
         for data in content.get("datas", []):
             check_format_candles_price(data)
             await utils.set_candles_price(data=data["data"], market=data["market"], exchange=data["exchange"], symbol=data["symbol"], timeframe=data["timeframe"], data_length=data_length)
+    elif content.get("type",None) == "forecast-direction":
+        data = content.get("datas", None)
+        if not isinstance(data, list):
+            raise MissingDataException("Failed to get 'datas' key or 'datas' is not a list")
+        check_format_forecast_direction(data)
+        await utils.set_forecast_direction(data)

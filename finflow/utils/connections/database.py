@@ -51,7 +51,7 @@ class Database():
         q = f"DROP TABLE IF EXISTS {table}"
         return self.query(q)
     
-    def save_dataframe(self, df, table_name, if_exists='append'):
+    def save_dataframe(self, df, table_name, if_exists='append', data_length=None):
         if if_exists == "append":
             with self.engine.begin() as connection:
                 df.to_sql(table_name, con=connection, if_exists='append', index=False)
