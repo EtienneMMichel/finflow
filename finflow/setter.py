@@ -36,7 +36,7 @@ def check_format_candles_price(data):
     if not "volume" in list(d.keys()) or not isinstance(d["volume"], str): raise MissingDataException("no 'volume' or incorrect format")
 
 
-def check_format_forecast_direction():
+def check_format_forecast_direction(data):
     pass
 
 
