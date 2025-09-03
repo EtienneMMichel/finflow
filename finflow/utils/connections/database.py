@@ -30,7 +30,7 @@ class Database():
             response = connection.execute(sa.text(q))
         return response
 
-    async def get_table(self, table: str, additional_query: str = ""):
+    def get_table(self, table: str, additional_query: str = ""):
         '''
         table [str]: table name
         additional_query [str]: filters
@@ -50,11 +50,30 @@ class Database():
         '''
         q = f"DROP TABLE IF EXISTS {table}"
         return self.query(q)
+    
+    def save_dataframe(self, df, table_name, if_exists='append'):
+        if if_exists == "append":
+            with self.engine.begin() as connection:
+                df.to_sql(table_name, con=connection, if_exists='append', index=False)
+        elif if_exists == "replace":
+            try:
+                df_in_db = self.get_table(table_name)
+            except ProgrammingError as e:
+                if "UndefinedTable" in str(e):
+                    df_in_db = pd.DataFrame()
+                else: raise e
+            if not df_in_db.empty:
+                df = pd.concat([df_in_db, df], axis=0)
+            subset = list(filter(lambda c:c != "data", list(df.columns)))
+            df.drop_duplicates(subset = subset,keep='last', inplace=True)
+            with self.engine.begin() as connection:
+                df.to_sql(table_name, con=connection, if_exists='replace', index=False)
 
-    async def set_data(self, records, table_name,data_length=None):
+
+    def set_data(self, records, table_name, data_length=None):
         df = pd.DataFrame(records)
         try:
-            df_in_db = await self.get_table(table_name)
+            df_in_db = self.get_table(table_name)
         except ProgrammingError as e:
             if "UndefinedTable" in str(e):
                 df_in_db = pd.DataFrame()

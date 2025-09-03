@@ -3,7 +3,7 @@ from ..connections.database import Database as ConnectionObject
 
 async def get_candles_price(market, exchange, symbol, timeframe):
     conn = ConnectionObject()
-    return await conn.get_table(f"candles_price-{market}-{exchange}-{symbol}-{timeframe}")
+    return conn.get_table(f"candles_price-{market}-{exchange}-{symbol}-{timeframe}")
 
 async def get_historical_candles_price(market, exchange, symbol, timeframe):
     if exchange == "binance":
