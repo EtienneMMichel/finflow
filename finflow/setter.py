@@ -39,12 +39,15 @@ def check_format_candles_price(data):
 def check_format_forecast_direction(data):
     pass
 
+def check_format_forecast_vol(data):
+    pass
+
 def check_format_fundings(data):
     exchange = data.get("exchange", None)
     if not isinstance(exchange, str):
         raise MissingDataException("no 'exchange' key or incorrect format")
     
-    records = data.get("datas", None)
+    records = data.get("data", None)
     if not isinstance(records, list):
         raise MissingDataException("no 'datas' key or incorrect format (must be a list of dict)")
     if len(records) > 0:
@@ -77,13 +80,13 @@ async def set_data(content):
         data = content.get("datas", None)
         if not isinstance(data, list):
             raise MissingDataException("Failed to get 'datas' key or 'datas' is not a list")
-        # check_format_forecast_direction(data)
+        check_format_forecast_vol(data)
         await utils.set_volatility_forecast(data, data_length=data_length)
 
     
     elif content.get("type",None) == "fundings":
         data = content.get("datas", None)
-        if not isinstance(data, list):
-            raise MissingDataException("Failed to get 'datas' key or 'datas' is not a list")
+        if not isinstance(data, dict):
+            raise MissingDataException("Failed to get 'datas' key or 'datas' is not a dict")
         check_format_fundings(data)
         await utils.set_fundings(data, data_length=data_length)

@@ -3,7 +3,6 @@ from ..connections.database import Database as ConnectionObject
 
 async def set_fundings(data, data_length=None):
     conn = ConnectionObject()
-    # 
     exchange = data["exchange"]
     records = data["data"]
     for i in range(len(records)):records[i]["exchange"] = exchange

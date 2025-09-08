@@ -29,5 +29,15 @@ async def test_forecast_direction():
                'datas': [{'timestamp': 1756824660000, 'bot_id': "test", 'symbol': 'BTC_USDC', 'timeframe': '1m', 'direction': 'down'}, {'timestamp': 1756824780000, 'bot_id': "test", 'symbol': 'BTC_USDC', 'timeframe': '1m', 'direction': 'down'}]}
 
     await set_data(content)
+
+
+async def test_fundings():
+    content = {'type': 'fundings', 'datas': {'exchange': 'bitget', 'data': [{'timestamp': 1757346485611, 'symbol': 'BTCUSDT', 'base_asset': 'BTC', 'quote_asset': 'USDT', 'funding_rate': '0.000049', 'mark_price': '112501'},
+                                                                             {'timestamp': 1757346485611, 'symbol': 'ETHUSDT', 'base_asset': 'ETH', 'quote_asset': 'USDT', 'funding_rate': '0.0001', 'mark_price': '4360.11'}]}}
+
+    await set_data(content)
+
+
+
 if __name__ == "__main__":
-    asyncio.run(test_forecast_direction())
+    asyncio.run(test_fundings())
