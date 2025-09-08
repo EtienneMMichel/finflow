@@ -12,12 +12,13 @@ PASSWORD = os.getenv("DB_PASSWORD")
 HOST = os.getenv("DB_HOST")
 PORT = os.getenv("DB_PORT")
 DATABASE_NAME = os.getenv("DB_NAME")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 class Database():
     def __init__(self):
         user, password, host, port, database_name = USER, PASSWORD, HOST, PORT, DATABASE_NAME
-        url = f'postgresql://{user}:{password}@{host}:{port}/{database_name}'
+        url = DATABASE_URL # f'postgresql://{user}:{password}@{host}:{port}/{database_name}'
         url = url.replace("\r", "")
         self.engine = sa.create_engine(url)
         self.is_logged = True
