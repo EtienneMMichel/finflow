@@ -20,6 +20,7 @@ class Database():
         user, password, host, port, database_name = USER, PASSWORD, HOST, PORT, DATABASE_NAME
         url = DATABASE_URL # f'postgresql://{user}:{password}@{host}:{port}/{database_name}'
         url = url.replace("\r", "")
+        print("URL: ", url)
         self.engine = sa.create_engine(url)
         self.is_logged = True
 
