@@ -25,6 +25,9 @@ async def test_forecast_direction():
                'datas': [{'timestamp': 1756824660000, 'bot_id': "test", 'symbol': 'BTC_USDC', 'timeframe': '1m', 'exchange': 'binance', 'market': 'spot', 'direction': 'down'}, {'timestamp': 1756824720000, 'bot_id': "test", 'symbol': 'BTC_USDC', 'timeframe': '1m', 'exchange': 'binance', 'market': 'spot', 'direction': 'down'}]}
 
     await set_data(content)
+    content = {'type': 'forecast-direction',
+               'datas': [{'timestamp': 1756824660000, 'bot_id': "test", 'symbol': 'BTC_USDC', 'timeframe': '1m', 'exchange': 'binance', 'market': 'spot', 'direction': 'down'}, {'timestamp': 1756824780000, 'bot_id': "test", 'symbol': 'BTC_USDC', 'timeframe': '1m', 'exchange': 'binance', 'market': 'spot', 'direction': 'down'}]}
 
+    await set_data(content)
 if __name__ == "__main__":
     asyncio.run(test_forecast_direction())
