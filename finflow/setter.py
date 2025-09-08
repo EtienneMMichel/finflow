@@ -50,6 +50,10 @@ def check_format_fundings(data):
     if len(records) > 0:
         if not isinstance(records[0].get("timestamp", None), int):
             raise MissingDataException("no 'timestamp' key or incorrect format (must be an int)")
+        if not isinstance(records[0].get("quote_asset", None), str):
+            raise MissingDataException("no 'quote_asset' key or incorrect format (must be an str)")
+        if not isinstance(records[0].get("base_asset", None), str):
+            raise MissingDataException("no 'base_asset' key or incorrect format (must be an str)")
         if not isinstance(records[0].get("funding_rate", None), str):
             raise MissingDataException("no 'funding_rate' key or incorrect format (must be an str)")
         if not isinstance(records[0].get("mark_price", None), str):
