@@ -14,6 +14,6 @@ async def get_fundings(exchanges=[], symbols=[]):
     TO-DO: filter by exchanges and symbols
     '''
     conn = ConnectionObject()
-    additional_query = []
+    additional_query = ""
     res = conn.get_table("fundings", additional_query=additional_query)
     return res # res.to_dict(orient="records")

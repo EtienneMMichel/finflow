@@ -18,5 +18,17 @@ async def test_get_candles_price():
     res = await get_data(config)
     print(res)
 
+async def test_get_fundings():
+    config = {
+        "data":{
+            "fundings":{
+                "exchanges": [],
+                "symbols": []
+            }
+        }
+    }
+    data = await get_data(config["data"])
+    print(data)
+
 if __name__ == "__main__":
-    asyncio.run(test_get_candles_price())
+    asyncio.run(test_get_fundings())
