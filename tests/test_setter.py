@@ -38,6 +38,12 @@ async def test_fundings():
     await set_data(content)
 
 
+async def test_diff_fundings():
+    content = {'type': 'diff_fundings', 'datas': [{'timestamp': 1757349184303, 'base_asset': 'KAITO', 'diff': '0.000000', 'short_leg': 'USDT', 'short_leg_exchange': 'bitget', 'short_fr': '5e-05', 'long_leg': 'USDC', 'long_leg_exchange': 'bitget', 'long_fr': '5e-05'}, {'timestamp': 1757349184303, 'base_asset': 'GODS', 'diff': '0.000025', 'short_leg': 'USDC', 'short_leg_exchange': 'bitget', 'short_fr': '5e-05', 'long_leg': 'USDT', 'long_leg_exchange': 'bitget', 'long_fr': '2.5e-05'}, {'timestamp': 1757349184303, 'base_asset': 'WLFI', 'diff': '0.000000', 'short_leg': 'USDT', 'short_leg_exchange': 'bitget', 'short_fr': '5e-05', 'long_leg': 'USDC', 'long_leg_exchange': 'bitget', 'long_fr': '5e-05'}]}
+
+    await set_data(content)
+
+
 
 if __name__ == "__main__":
-    asyncio.run(test_fundings())
+    asyncio.run(test_diff_fundings())

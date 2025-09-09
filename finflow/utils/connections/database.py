@@ -104,14 +104,14 @@ class Database():
         with self.engine.begin() as connection:
             df.to_sql(table_name, con=connection, if_exists='replace', index=False)
 
-    def upsert_records(self, records: list[dict], table_name: str, conflict_cols: list[str]):
+    def upload_data(self, records: list[dict], table_name: str, conflict_cols: list[str]):
         """
         UPSERT (insert or update) une liste de dictionnaires dans la table donnée.
         - records: liste de dicts [{col: val, ...}, ...]
         - table_name: nom de la table
         - conflict_cols: colonnes de clé (unique/PK)
         """
-        def process():
+        def upsert_process():
             if not records:
                 return
 
@@ -136,20 +136,28 @@ class Database():
             # Exécuter
             with self.engine.begin() as conn:
                 conn.execute(upsert_stmt)
-
-        try:
-            process()
-        except NoSuchTableError:
+        
+        def append_process():
             df = pd.DataFrame(records)
             with self.engine.begin() as connection:
                 df.to_sql(table_name, con=connection, if_exists='append', index=False)
-            self.create_primary_key(table_name, conflict_cols)
+
+        try:
+            if len(conflict_cols) > 0:
+                upsert_process()
+            else:
+                append_process()
+        except NoSuchTableError:
+            append_process()
+            if len(conflict_cols) > 0:
+                self.create_primary_key(table_name, conflict_cols)
 
         except (InvalidColumnReference, ProgrammingError) as e:
             # set primary key
             print(f"Clé primaire sur {conflict_cols} manquante. Création...")
-            self.create_primary_key(table_name, conflict_cols)
-            process()  # réessayer l'UPSERT après avoir créé la PK
+            if len(conflict_cols) > 0:
+                self.create_primary_key(table_name, conflict_cols)
+                upsert_process()  # réessayer l'UPSERT après avoir créé la PK
 
     def create_primary_key(self, table_name: str, columns: list[str]):
         """

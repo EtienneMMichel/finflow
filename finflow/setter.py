@@ -42,6 +42,24 @@ def check_format_forecast_direction(data):
 def check_format_forecast_vol(data):
     pass
 
+def check_format_diff_fundings(data):
+    """
+        format : [{
+            "timestamp":int
+            "base_asset":str
+            "diff":str
+
+            "short_leg":str
+            "short_leg_exchange":str
+            "short_fr":str
+
+            "long_leg":str
+            "long_leg_exchange":str
+            "long_fr":str
+        }]
+        """
+    pass
+
 def check_format_fundings(data):
     exchange = data.get("exchange", None)
     if not isinstance(exchange, str):
@@ -90,3 +108,10 @@ async def set_data(content):
             raise MissingDataException("Failed to get 'datas' key or 'datas' is not a dict")
         check_format_fundings(data)
         await utils.set_fundings(data, data_length=data_length)
+
+    elif content.get("type",None) == "diff_fundings":
+        data = content.get("datas", None)
+        if not isinstance(data, list):
+            raise MissingDataException("Failed to get 'datas' key or 'datas' is not a list")
+        check_format_diff_fundings(data)
+        await utils.set_diff_fundings(data, data_length=data_length)
