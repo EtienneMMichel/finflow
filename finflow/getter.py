@@ -36,6 +36,6 @@ async def get_data(config):
         res["candles_price"] = {}
         exchanges = data_config["fundings"].get("exchanges", [])
         symbols = data_config["fundings"].get("symbols", [])
-        res = utils.get_fundings(exchanges=exchanges, symbols=symbols)
+        res = await utils.get_fundings(exchanges=exchanges, symbols=symbols)
 
     return res
