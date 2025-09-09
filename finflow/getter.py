@@ -29,4 +29,13 @@ async def get_data(config):
                         raise ConfigException("symbol_timeframe should be a dict with keys ('symbol', 'timeframe')")
                     symbol, timeframe = symbol_timeframe.get("symbol", None), symbol_timeframe.get("timeframe", None)
                     res["historical_candles_price"][market][exchange][f"{symbol}--{timeframe}"] = utils.get_historical_candles_price(market, exchange, symbol, timeframe)
+
+
+    
+    if isinstance(data_config.get("fundings",None), dict):
+        res["candles_price"] = {}
+        exchanges = data_config["fundings"].get("exchanges", [])
+        symbols = data_config["fundings"].get("symbols", [])
+        res = utils.get_fundings(exchanges=exchanges, symbols=symbols)
+
     return res
