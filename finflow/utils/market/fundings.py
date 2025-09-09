@@ -26,7 +26,7 @@ async def set_diff_fundings(data, data_length=None):
     conn = ConnectionObject()
     conn.upload_data(data, "diff_fundings", conflict_cols=[])
 
-async def get_fundings(symbols=[]):
+async def get_diff_fundings(symbols=[]):
     '''
     TO-DO: filter by symbols
     '''
