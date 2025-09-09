@@ -11,7 +11,7 @@ async def set_fundings(data, data_length=None):
 
 async def get_fundings(exchanges=[], symbols=[]):
     '''
-    TO-DO: filter by exchanges and symbols
+    TO-DO: filter by exchanges and symbols.
     '''
     conn = ConnectionObject()
     additional_query = ""
