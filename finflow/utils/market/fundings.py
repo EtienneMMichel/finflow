@@ -24,7 +24,7 @@ async def get_fundings(exchanges=[], symbols=[]):
 
 async def set_diff_fundings(data, data_length=None):
     conn = ConnectionObject()
-    conn.upload_data(data, "diff_fundings", conflict_cols=[])
+    conn.upload_data(data, "diff_fundings", conflict_cols=["base_asset"])
 
 async def get_diff_fundings(symbols=[]):
     '''
