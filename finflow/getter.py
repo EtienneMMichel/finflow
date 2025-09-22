@@ -28,7 +28,7 @@ async def get_data(config):
                     if not isinstance(symbol_timeframe, dict):
                         raise ConfigException("symbol_timeframe should be a dict with keys ('symbol', 'timeframe')")
                     symbol, timeframe = symbol_timeframe.get("symbol", None), symbol_timeframe.get("timeframe", None)
-                    res["historical_candles_price"][market][exchange][f"{symbol}--{timeframe}"] = utils.get_historical_candles_price(market, exchange, symbol, timeframe)
+                    res["historical_candles_price"][market][exchange][f"{symbol}--{timeframe}"] = await utils.get_historical_candles_price(market, exchange, symbol, timeframe)
 
 
     
