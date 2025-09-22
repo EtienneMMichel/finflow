@@ -80,7 +80,6 @@ def check_format_fundings(data):
         if not isinstance(records[0].get("mark_price", None), str):
             raise MissingDataException("no 'mark_price' key or incorrect format (must be an str)")
 
-
 async def set_data(content):
     data_length = content.get("data_length", DEFAULT_DATA_LENGTH)
     if content.get("type",None) == "candles_price":
