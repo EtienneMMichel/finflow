@@ -68,12 +68,13 @@ requests = ">=2.32.5,<3.0.0"
 shutils = ">=0.1.0,<0.2.0"
 sqlalchemy = ">=2.0.43,<3.0.0"
 tqdm = ">=4.67.1,<5.0.0"
+xmltodict = ">=1.0.2,<2.0.0"
 
 [package.source]
 type = "git"
 url = "https://github.com/EtienneMMichel/binance-historical.git"
 reference = "HEAD"
-resolved_reference = "9b943ea8ac99ac70bf15b5a0a691b630e89ff26d"
+resolved_reference = "2cea3a4753334a43d32de7683cf51043e03dff5f"
 
 [[package]]
 name = "certifi"
@@ -1372,6 +1373,22 @@ files = [
     {file = "websockets-15.0.1-py3-none-any.whl", hash = "sha256:f7a866fbc1e97b5c617ee4116daaa09b722101d4a3c170c787450ba409f9736f"},
     {file = "websockets-15.0.1.tar.gz", hash = "sha256:82544de02076bafba038ce055ee6412d68da13ab47f0c60cab827346de828dee"},
 ]
+
+[[package]]
+name = "xmltodict"
+version = "1.0.2"
+description = "Makes working with XML feel like you are working with JSON"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+markers = "python_version <= \"3.11\" or python_version >= \"3.12\""
+files = [
+    {file = "xmltodict-1.0.2-py3-none-any.whl", hash = "sha256:62d0fddb0dcbc9f642745d8bbf4d81fd17d6dfaec5a15b5c1876300aad92af0d"},
+    {file = "xmltodict-1.0.2.tar.gz", hash = "sha256:54306780b7c2175a3967cad1db92f218207e5bc1aba697d887807c0fb68b7649"},
+]
+
+[package.extras]
+test = ["pytest", "pytest-cov"]
 
 [metadata]
 lock-version = "2.1"
