@@ -60,6 +60,10 @@ def check_format_diff_fundings(data):
         """
     pass
 
+
+def check_format_liquidation(data):
+    pass
+
 def check_format_fundings(data):
     exchange = data.get("exchange", None)
     if not isinstance(exchange, str):
@@ -114,3 +118,10 @@ async def set_data(content):
             raise MissingDataException("Failed to get 'datas' key or 'datas' is not a list")
         check_format_diff_fundings(data)
         await utils.set_diff_fundings(data, data_length=data_length)
+
+    elif content.get("type",None) == "liquidation":
+        data = content.get("datas", None)
+        if not isinstance(data, list):
+            raise MissingDataException("Failed to get 'datas' key or 'datas' is not a list")
+        check_format_liquidation(data)
+        await utils.set_liquidation(data, data_length=data_length)
