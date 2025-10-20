@@ -66,6 +66,6 @@ async def get_data(config):
         
         if len(additional_query) > 0: additional_query = "WHERE " + additional_query
         
-        res = await utils.get_liquidation(additional_query=additional_query)
+        res["liquidation"] = await utils.get_liquidation(additional_query=additional_query)
 
     return res
