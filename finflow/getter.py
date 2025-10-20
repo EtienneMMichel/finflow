@@ -38,4 +38,34 @@ async def get_data(config):
         symbols = data_config["fundings"].get("symbols", [])
         res = await utils.get_fundings(exchanges=exchanges, symbols=symbols)
 
+    if isinstance(data_config.get("liquidation",None), dict):
+        additional_query = ""
+        symbols = data_config["liquidation"].get("symbols", [])
+        if len(symbols) > 0:
+            additional_query += ("" if len(additional_query) == 0 else " AND ") + f"symbol IN ({', '.join(symbols)})"
+        
+        exchanges = data_config["liquidation"].get("exchange", [])
+        if len(exchanges) > 0:
+            additional_query += ("" if len(additional_query) == 0 else " AND ") + f"exchange IN ({', '.join(exchanges)})"
+        
+        nb_liquidation = data_config["liquidation"].get("nb_liquidation", 0)
+        if nb_liquidation > 0:
+            additional_query += ("" if len(additional_query) == 0 else " AND ") + f"nb_liquidation >= {nb_liquidation}"
+
+        liquidation = data_config["liquidation"].get("liquidation", 0)
+        if liquidation > 0:
+            additional_query += ("" if len(additional_query) == 0 else " AND ") + f"liquidation >= {liquidation}"
+
+        quote_asset = data_config["liquidation"].get("quote_asset", "")
+        if len(quote_asset) > 0:
+            additional_query += ("" if len(additional_query) == 0 else " AND ") + f"quote_asset = '{quote_asset}'"
+
+        base_asset = data_config["liquidation"].get("base_asset", "")
+        if len(base_asset) > 0:
+            additional_query += ("" if len(additional_query) == 0 else " AND ") + f"base_asset = '{base_asset}'"
+        
+        if len(additional_query) > 0: additional_query = "WHERE " + additional_query
+        
+        res = await utils.get_liquidation(additional_query=additional_query)
+
     return res
