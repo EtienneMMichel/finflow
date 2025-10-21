@@ -45,6 +45,7 @@ async def get_data(config):
             if len(symbols) == 1:
                 additional_query += ("" if len(additional_query) == 0 else " AND ") + f"symbol = '{symbols[0]}'"
             else:
+                symbols = [f"'{s}'" for s in symbols]
                 additional_query += ("" if len(additional_query) == 0 else " AND ") + f"symbol IN ({', '.join(symbols)})"
         
         exchanges = data_config["liquidation"].get("exchange", [])
