@@ -42,11 +42,17 @@ async def get_data(config):
         additional_query = ""
         symbols = data_config["liquidation"].get("symbols", [])
         if len(symbols) > 0:
-            additional_query += ("" if len(additional_query) == 0 else " AND ") + f"symbol IN ({', '.join(symbols)})"
+            if len(symbols) == 1:
+                additional_query += ("" if len(additional_query) == 0 else " AND ") + f"symbol = '{symbols[0]}'"
+            else:
+                additional_query += ("" if len(additional_query) == 0 else " AND ") + f"symbol IN ({', '.join(symbols)})"
         
         exchanges = data_config["liquidation"].get("exchange", [])
         if len(exchanges) > 0:
-            additional_query += ("" if len(additional_query) == 0 else " AND ") + f"exchange IN ({', '.join(exchanges)})"
+            if len(exchanges) == 1:
+                additional_query += ("" if len(additional_query) == 0 else " AND ") + f"symbol = '{symbols[0]}'"
+            else:
+                additional_query += ("" if len(additional_query) == 0 else " AND ") + f"exchange IN ({', '.join(exchanges)})"
         
         nb_liquidation = data_config["liquidation"].get("nb_liquidation", 0)
         if nb_liquidation > 0:
