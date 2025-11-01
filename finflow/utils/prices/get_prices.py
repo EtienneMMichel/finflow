@@ -10,7 +10,7 @@ async def get_historical_candles_price(market, exchange, symbol, timeframe, star
     if exchange == "binance":
         end_date = dt.datetime.today()
         start_date = dt.datetime.strptime(start_date, "%Y-%m-%d")
-        data = extract_klines([symbol], [timeframe], start_date, end_date, is_local=True)
+        data = extract_klines([symbol], [timeframe], start_date, end_date, is_local=True, market=market)
         res = data.get(symbol,{}).get(timeframe, None)
         return res
     return None
