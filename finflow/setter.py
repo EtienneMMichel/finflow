@@ -72,17 +72,17 @@ def check_format_fundings(data):
     records = data.get("data", None)
     if not isinstance(records, list):
         raise MissingDataException("no 'datas' key or incorrect format (must be a list of dict)")
-    if len(records) > 0:
-        if not isinstance(records[0].get("timestamp", None), int):
-            raise MissingDataException("no 'timestamp' key or incorrect format (must be an int)")
-        if not isinstance(records[0].get("quote_asset", None), str):
-            raise MissingDataException("no 'quote_asset' key or incorrect format (must be an str)")
-        if not isinstance(records[0].get("base_asset", None), str):
-            raise MissingDataException("no 'base_asset' key or incorrect format (must be an str)")
-        if not isinstance(records[0].get("funding_rate", None), str):
-            raise MissingDataException("no 'funding_rate' key or incorrect format (must be an str)")
-        if not isinstance(records[0].get("mark_price", None), str):
-            raise MissingDataException("no 'mark_price' key or incorrect format (must be an str)")
+    # if len(records) > 0:
+    #     if not isinstance(records[0].get("timestamp", None), int):
+    #         raise MissingDataException("no 'timestamp' key or incorrect format (must be an int)")
+    #     if not isinstance(records[0].get("quote_asset", None), str):
+    #         raise MissingDataException("no 'quote_asset' key or incorrect format (must be an str)")
+    #     if not isinstance(records[0].get("base_asset", None), str):
+    #         raise MissingDataException("no 'base_asset' key or incorrect format (must be an str)")
+    #     if not isinstance(records[0].get("funding_rate", None), str):
+    #         raise MissingDataException("no 'funding_rate' key or incorrect format (must be an str)")
+    #     if not isinstance(records[0].get("mark_price", None), str):
+    #         raise MissingDataException("no 'mark_price' key or incorrect format (must be an str)")
 
 async def set_data(content):
     data_length = content.get("data_length", DEFAULT_DATA_LENGTH)
