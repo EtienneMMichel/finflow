@@ -14,7 +14,6 @@ dependencies = [
     "sqlalchemy (>=2.0.43,<3.0.0)",
     "pandas (>=2.3.1,<3.0.0)",
     "psycopg2 (>=2.9.10,<3.0.0)",
-    "supabase (>=2.18.1,<3.0.0)",
     "binance-historical @ git+https://github.com/EtienneMMichel/binance-historical.git"
 ]
 
