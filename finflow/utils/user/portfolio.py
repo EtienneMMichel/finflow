@@ -10,4 +10,4 @@ async def set_portfolio(data):
     
     if len(data["balance"]) > 0:
         for i in range(len(data["balance"])): data["balance"][i]["timestamp"] = now
-        conn.upload_data(data["balance"], "portfolio_balance")
+        conn.upload_data(data["balance"], "portfolio_balance", conflict_cols=["market", "exchange", "symbol", "timestamp"])
