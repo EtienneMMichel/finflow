@@ -125,3 +125,11 @@ async def set_data(content):
             raise MissingDataException("Failed to get 'datas' key or 'datas' is not a list")
         check_format_liquidation(data)
         await utils.set_liquidation(data, data_length=data_length)
+
+    elif content.get("type",None) == "orders_historical":
+        data = content.get("datas", None)
+        await utils.set_orders_historical(data)
+
+    elif content.get("type",None) == "portfolio":
+        data = content.get("datas", None)
+        await utils.set_portfolio(data)
