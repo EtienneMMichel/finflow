@@ -154,9 +154,12 @@ class Database():
         except (InvalidColumnReference, ProgrammingError) as e:
             # set primary key
             print(f"Clé primaire sur {conflict_cols} manquante. Création...")
-            if len(conflict_cols) > 0:
-                self.create_primary_key(table_name, conflict_cols)
-                upsert_process()  # réessayer l'UPSERT après avoir créé la PK
+            try:
+                if len(conflict_cols) > 0:
+                    self.create_primary_key(table_name, conflict_cols)
+                    upsert_process()  # réessayer l'UPSERT après avoir créé la PK
+            except:
+                raise e
 
     def create_primary_key(self, table_name: str, columns: list[str]):
         """

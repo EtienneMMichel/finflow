@@ -1,10 +1,16 @@
 import pandas as pd
-from ..connections.database import Database as ConnectionObject 
+from ..connections.database import Database as ConnectionObject
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 async def set_fundings(data, data_length=None):
     conn = ConnectionObject()
     exchange = data["exchange"]
     records = data["data"]
+    logging.info(records)
+    if len(records) == 0:
+        return
     for i in range(len(records)):records[i]["exchange"] = exchange
     conn.upload_data(records, "fundings", conflict_cols=["timestamp", "exchange", "base_asset", "quote_asset"])
 
