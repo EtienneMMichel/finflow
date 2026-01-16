@@ -8,7 +8,6 @@ async def set_fundings(data, data_length=None):
     conn = ConnectionObject()
     exchange = data["exchange"]
     records = data["data"]
-    logging.info(records)
     if len(records) == 0:
         return
     for i in range(len(records)):records[i]["exchange"] = exchange
