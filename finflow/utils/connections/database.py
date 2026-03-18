@@ -24,7 +24,7 @@ class Database():
         user, password, host, port, database_name = USER, PASSWORD, HOST, PORT, DATABASE_NAME
         url = DATABASE_URL  # f'postgresql://{user}:{password}@{host}:{port}/{database_name}'
         url = url.replace("\r", "")
-        self.engine = sa.create_engine(url)
+        self.engine = sa.create_engine(url, pool_pre_ping=True)
         self.is_logged = True
         self.metadata = sa.MetaData()
         self.metadata.reflect(bind=self.engine)
